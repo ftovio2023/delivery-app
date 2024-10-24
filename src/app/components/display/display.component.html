@@ -1,0 +1,13 @@
+<h3>{{ title }}</h3>
+
+<ul class="list-group">
+    <li *ngFor="let address of address; let i = index" class="list-group-item d-flex justify-content-between">
+        <div>
+            <span class="text-primary">{{ i + 1 }}. </span>
+            {{ address }}
+        </div>
+        <span *ngIf="isEditMode">
+            <input type="checkbox" (click)="showIndex(i)">
+        </span>
+    </li>
+  </ul>

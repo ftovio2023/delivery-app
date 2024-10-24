@@ -1,0 +1,35 @@
+<div class="container text-center mt-5 bg-light p-5 rounded">
+    <h1>Bienvenido a la Aplicación de Envíos</h1>
+    <div class="mt-4">
+        <div class="row">
+            <button routerLink="direccionEntrega" class="btn btn-primary mb-3 btn-lg">Agregar Dirección</button>
+        </div>
+        <div class="row">
+            <button routerLink="fechaEntrega" class="btn btn-primary mb-3 btn-lg" (click)="showMessage()">Agregar Fecha de Entrega</button>
+        </div>
+        <div class="row">
+            <button routerLink="listaDirecciones" class="btn btn-primary mb-3 btn-lg">Ver Lista de Entregas</button>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Envios sin Agendar</th>
+                    <th scope="col">Envios Agendados</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ addressLength }}</td>
+                    <td>{{ deliveryLength }}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info" *ngIf="showMessageBoolean" role="alert">
+  Debe Ingresar como minimo 1 Direccion para poder agendar entregas.
+</div>
+

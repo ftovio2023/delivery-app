@@ -1,0 +1,103 @@
+<h4>Direccion de Envio</h4>
+
+<form [formGroup]="myForm" (ngSubmit)="saveAddres()">
+
+  <div class="form-group mb-2">
+    <input [ngClass]="{'is-invalid': isValidField('name')}" type="text" class="form-control" placeholder="Nombre" formControlName="name">
+    <small class="text-danger" *ngIf="isValidField('name')">
+      {{ getFieldError('name') }}
+    </small>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group mb-2">
+        <small class="text-start">Departamento</small>
+        <select [ngClass]="{'is-invalid': isValidField('department')}" #optionSelected class="form-select" (change)="emitDepartment( optionSelected.value )" formControlName="department">
+          <option selected></option>
+          <option *ngFor="let department of departments; let i = index" [value]="department">{{ department }}</option>
+        </select>
+        <small class="text-danger" *ngIf="isValidField('department')">
+          {{ getFieldError('department') }}
+        </small>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group mb-2">
+        <small class="text-start">Municipio o Ciudad</small>
+        <select [ngClass]="{'is-invalid': isValidField('city')}" class="form-select" formControlName="city">
+          <option selected></option>
+          <option *ngFor="let citie of cities; let i = index" [value]="citie">{{ citie }}</option>
+        </select>
+        <small class="text-danger" *ngIf="isValidField('city')">
+          {{ getFieldError('city') }}
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group mb-2">
+        <small class="text-start">Tipo de Calle</small>
+        <select #street [ngClass]="{'is-invalid': isValidField('street')}" class="form-select" (change)="streetSelected( street.value )" formControlName="street">
+          <option selected>-</option>
+          <option *ngFor="let street of typeStreet" [value]="street">{{ street}}</option>
+        </select>
+        <small class="text-danger" *ngIf="isValidField('street')">
+          {{ getFieldError('street') }}
+        </small>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group mb-2">
+        <small class="text-start">{{ selectedStreet }}</small>
+        <input [ngClass]="{'is-invalid': isValidField('streetNumber')}" type="text" class="form-control" formControlName="streetNumber">
+        <small class="text-muted" *ngIf="!isValidField('streetNumber')">
+          Completa solo con el nombre y el prefijo. Ej: 25 Norte
+        </small>
+        <small class="text-danger" *ngIf="isValidField('streetNumber')">
+          {{ getFieldError('streetNumber') }}
+        </small>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="row mb-2">
+        <div class="col">
+          <small class="text-start">Numero</small>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">#</div>
+            </div>
+            <input type="text" class="form-control" formControlName="numberOne">
+          </div>
+        </div>
+        <div class="col">
+          <small class="text-start">.</small>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">-</div>
+            </div>
+            <input [ngClass]="{'is-invalid': myForm.errors?.['inputEquals'] && myForm.get('numberTwo')?.touched}" type="number" class="form-control" formControlName="numberTwo">
+            <small class="text-danger" *ngIf="myForm.errors?.['inputEquals'] && myForm.get('numberTwo')?.touched">
+              No puede ser igual al número anterior
+            </small>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group mb-2">
+    <small class="text-start">Informacion Adicional</small>
+    <input type="text" class="form-control" placeholder="..." formControlName="additional">
+  </div>
+
+  <button class="btn btn-primary">Guardar</button>
+</form>
+
+<div class="alert alert-success mt-3" *ngIf="addressLength > 0">Se agrego 1 direccion.</div>
+
+<!-- <pre>{{ myForm.controls['numberTwo'].valid }}</pre>
+<pre>{{ myForm.controls['numberTwo'].touched }}</pre> -->
+

@@ -1,0 +1,36 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <app-display title="Direcciones Sin Agenda"></app-display>
+            <div *ngIf="addressLength === 0" class="alert alert-warning" role="alert">
+                No hay Direcciones
+              </div>
+        </div>
+        <div class="col">
+            <ng-template #messageError>
+                <h3> Envios Realizados </h3>
+                <div  class="alert alert-warning" role="alert">
+                    No hay Envios
+                  </div>
+            </ng-template>
+            <table *ngIf="deliveryLength > 0; else messageError" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Fecha y Hora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let delivery of delivery">
+                        <td>
+                            {{ delivery.address }}
+                        </td>
+                        <td>
+                            {{ delivery.dateTime | dateTime }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
